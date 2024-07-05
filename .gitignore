@@ -1,0 +1,27 @@
+# Node modules
+node_modules
+
+# Output of the build process
+dist
+
+# Environment variables file (if using a .env file for local development)
+.env
+
+# Log files
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# macOS specific files
+.DS_Store
+
+# Text editor backup files
+*~
+
+# macOS directory attributes
+.AppleDouble
+.DS_Store
+.LSOverride
+
+# Icon must end with two \r
+Icon
