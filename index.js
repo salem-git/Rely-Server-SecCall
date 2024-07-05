@@ -26,7 +26,17 @@ app.get('/key-value/:key', (req, res) => {
         res.status(404).json({ error: 'Key not found' });
     }
 });
-const port = 3000;
+app.delete('/key-value/:key', (req, res) => {
+    const key = req.params.key;
+    if (keyValueStore[key]) {
+        delete keyValueStore[key];
+        res.status(200).json({ message: 'Key deleted successfully' });
+    }
+    else {
+        res.status(404).json({ error: 'Key not found' });
+    }
+});
+const port = process.env.PORT || 3000; // Default to port 3000 if not specified
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
