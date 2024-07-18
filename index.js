@@ -30,7 +30,7 @@ app.delete('/key-value/:key', (req, res) => {
     const key = req.params.key;
     if (keyValueStore[key]) {
         delete keyValueStore[key];
-        res.status(200).json({ message: 'Key deleted successfully' });
+        res.status(200).json({ message: 'Key deleted successfully! it is super simple' });
     }
     else {
         res.status(404).json({ error: 'Key not found' });
