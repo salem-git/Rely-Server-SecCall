@@ -15,9 +15,9 @@ app.post('/key-value', (req, res) => {
     // } else {
     //   res.status(400).json({ error: 'Invalid key-value pair' });
     // }
-    const { key, status, caller_phone_number, caller_name, receiver_phone_number } = req.body;
-    if (key && status && caller_phone_number && caller_name && receiver_phone_number) {
-        keyValueStore[key] = { status, caller_phone_number, caller_name, receiver_phone_number };
+    const { key, status, caller_phone_number, caller_name, receiver_phone_number, caller_publicKey } = req.body;
+    if (key && status && caller_phone_number && caller_name && receiver_phone_number && caller_publicKey) {
+        keyValueStore[key] = { status, caller_phone_number, caller_name, receiver_phone_number, caller_publicKey };
         res.status(201).json({ message: 'Key-value pair added successfully' });
     }
     else {
