@@ -6,8 +6,11 @@ const app = express();
 
 interface KeyValue {
   status: string;
-  phonenumber: string;
-  name: string;
+  caller_phone_number: string;
+  caller_name: string;
+  receiver_phone_number:string;
+  
+
 }
 
 const keyValueStore: {[key: string]: KeyValue} = {};
@@ -23,9 +26,9 @@ app.post('/key-value', (req: Request, res: Response) => {
   //   res.status(400).json({ error: 'Invalid key-value pair' });
   // }
 
-  const { key, status, phonenumber, name } = req.body;
-  if (key && status && phonenumber && name) {
-    keyValueStore[key] = { status, phonenumber, name };
+  const { key, status, caller_phone_number,caller_name, receiver_phone_number} = req.body;
+  if (key && status && caller_phone_number && caller_name && receiver_phone_number) {
+    keyValueStore[key] = { status,caller_phone_number,caller_name, receiver_phone_number };
     res.status(201).json({ message: 'Key-value pair added successfully' });
   } else {
     res.status(400).json({ error: 'Invalid key-value pair' });
