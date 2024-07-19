@@ -2,14 +2,30 @@ import express, { Request, Response } from 'express';
 
 const app = express();
 
-const keyValueStore: { [key: string]: string } = {};
+// const keyValueStore: { [key: string]: string } = {};
+
+interface KeyValue {
+  status: string;
+  phonenumber: string;
+  name: string;
+}
+
+const keyValueStore: {[key: string]: KeyValue} = {};
 
 app.use(express.json());
 
 app.post('/key-value', (req: Request, res: Response) => {
-  const { key, value } = req.body;
-  if (key && value) {
-    keyValueStore[key] = value;
+  // const { key, value } = req.body;
+  // if (key && value) {
+  //   keyValueStore[key] = value;
+  //   res.status(201).json({ message: 'Key-value pair added successfully' });
+  // } else {
+  //   res.status(400).json({ error: 'Invalid key-value pair' });
+  // }
+
+  const { key, status, phonenumber, name } = req.body;
+  if (key && status && phonenumber && name) {
+    keyValueStore[key] = { status, phonenumber, name };
     res.status(201).json({ message: 'Key-value pair added successfully' });
   } else {
     res.status(400).json({ error: 'Invalid key-value pair' });
@@ -19,7 +35,8 @@ app.post('/key-value', (req: Request, res: Response) => {
 app.get('/key-value/:key', (req: Request, res: Response) => {
   const key = req.params.key;
   if (keyValueStore[key]) {
-    res.status(200).json({ key, value: keyValueStore[key] });
+    // res.status(200).json({ key, value: keyValueStore[key] });
+    res.status(200).json({ key, ...keyValueStore[key] });
   } else {
     res.status(404).json({ error: 'Key not found' });
   }

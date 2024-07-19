@@ -8,9 +8,16 @@ const app = (0, express_1.default)();
 const keyValueStore = {};
 app.use(express_1.default.json());
 app.post('/key-value', (req, res) => {
-    const { key, value } = req.body;
-    if (key && value) {
-        keyValueStore[key] = value;
+    // const { key, value } = req.body;
+    // if (key && value) {
+    //   keyValueStore[key] = value;
+    //   res.status(201).json({ message: 'Key-value pair added successfully' });
+    // } else {
+    //   res.status(400).json({ error: 'Invalid key-value pair' });
+    // }
+    const { key, status, phonenumber, name } = req.body;
+    if (key && status && phonenumber && name) {
+        keyValueStore[key] = { status, phonenumber, name };
         res.status(201).json({ message: 'Key-value pair added successfully' });
     }
     else {
@@ -20,7 +27,8 @@ app.post('/key-value', (req, res) => {
 app.get('/key-value/:key', (req, res) => {
     const key = req.params.key;
     if (keyValueStore[key]) {
-        res.status(200).json({ key, value: keyValueStore[key] });
+        // res.status(200).json({ key, value: keyValueStore[key] });
+        res.status(200).json(Object.assign({ key }, keyValueStore[key]));
     }
     else {
         res.status(404).json({ error: 'Key not found' });
