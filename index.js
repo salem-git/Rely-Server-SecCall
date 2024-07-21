@@ -5,6 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
+// const keyValueStore: { [key: string]: string } = {};
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate'); // HTTP 1.1.
+    res.setHeader('Pragma', 'no-cache'); // HTTP 1.0.
+    res.setHeader('Expires', '0'); // Proxies.
+    next();
+});
 const keyValueStore = {};
 app.use(express_1.default.json());
 app.post('/key-value', (req, res) => {
